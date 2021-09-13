@@ -23,7 +23,10 @@
 	- [Data Format](#data-format)
 	- [Unplugging the USB Cable while running on batteries](#unplugging-the-usb-cable-while-running-on-batteries)
 	- [Deep sleep and USB](#deep-sleep-and-usb)
-	- [gitboot.sh and the other sketches](#gitbootsh-and-the-other-sketches)
+- [Meta](#meta)
+	- [License](#license)
+	- [Support Open Source Hardware and Software](#support-open-source-hardware-and-software)
+	- [Trademarks](#trademarks)
 
 <!-- /TOC -->
 ## Introduction
@@ -287,13 +290,13 @@ Because the 4618 is essentially identical to the 4612 other than sensors, you ma
 
 ### Data Format
 
-Refer to the [Protocol Description](../extra/catena-message-port3-format.md) in the `extras` directory for information on how data is encoded.
+Refer to the [Protocol Description](../extra/catena-message-port6-format.md) in the `extras` directory for information on how data is encoded.
 
 ### Unplugging the USB Cable while running on batteries
 
 The Catena 4618 dynamically uses power from the USB cable if it's available, even if a battery is connected. This allows you to unplug the USB cable after booting the Catena 4618 without causing the Catena 4618 to restart.
 
-Unfortunately, the Arduino USB drivers for the Catena 4618 M201 do not distinguish between cable unplug and USB suspend. Any `Serial.print()` operation referring to the USB port will hang if the cable is unplugged after being used during a boot. The easiest work-around is to reboot the Catena after unplugging the USB cable. You can avoid this by using the Arduino UI to turn off DTR before unplugging the cable... but then you must remember to turn DTR back on. This is very fragile in practice.
+Unfortunately, the Arduino USB drivers for the Catena 4618 do not distinguish between cable unplug and USB suspend. Any `Serial.print()` operation referring to the USB port will hang if the cable is unplugged after being used during a boot. The easiest work-around is to reboot the Catena after unplugging the USB cable. You can avoid this by using the Arduino UI to turn off DTR before unplugging the cable... but then you must remember to turn DTR back on. This is very fragile in practice.
 
 ### Deep sleep and USB
 
@@ -303,6 +306,18 @@ While disconnected, you won't be able to select the COM port for the board from 
 
 The workaround is use DFU boot mode to download the catena-hello sketch from [Catena-Arduino-Platform](https://github.com/mcci-catena/Catena-Arduino-Platform), and use the serial port to reset any required flags so you can get control after boot.
 
-### gitboot.sh and the other sketches
+## Meta
 
-Many of the sketches in other directories in this tree are for engineering use at MCCI. The `git-repos.dat` file in this directory does not necessarily install all the required libraries needed for building the other directories. However, many sketches have a suitable `git-repos.dat`. In any case, all the libraries should be available from https://github.com/mcci-catena/; and we are working on getting `git-repos.dat` files in every sub-directory.
+### License
+
+This repository is released under the [MIT](./LICENSE.md) license. Commercial licenses are also available from MCCI Corporation.
+
+### Support Open Source Hardware and Software
+
+MCCI invests time and resources providing this open source code, please support MCCI and open-source hardware by purchasing products from MCCI, Adafruit and other open-source hardware/software vendors!
+
+For information about MCCI's products, please visit [store.mcci.com](https://store.mcci.com/).
+
+### Trademarks
+
+MCCI and MCCI Catena are registered trademarks of MCCI Corporation. All other marks are the property of their respective owners.
