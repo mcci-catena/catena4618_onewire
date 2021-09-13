@@ -109,6 +109,7 @@ enum    {
 
 enum    {
         PIN_ONE_WIRE =  A2,        // XSDA1 == A2
+        PIN_ONE_WIRE_POWER = D11,
         };
 
 constexpr uint32_t CATCFG_GetInterval(uint32_t tCycle)
@@ -421,10 +422,24 @@ void setup_temp_rh(void)
                 }
         }
 
+void onewire_power_on(void)
+        {
+        pinMode(PIN_ONE_WIRE_POWER, OUTPUT);
+        digitalWrite(PIN_ONE_WIRE_POWER, 1);
+        delay(50);
+        }
+
+void onewire_power_off(void)
+        {
+        digitalWrite(PIN_ONE_WIRE_POWER, 0);
+        pinMode(PIN_ONE_WIRE_POWER, INPUT);        
+        }
+
 void setup_onewire(void)
         {
 	if (fMayHaveOneWireTemp)
 		{
+                onewire_power_on();
 		sensor_OneWireTemp.begin();
 		if (sensor_OneWireTemp.getDeviceCount() == 0)
 			{
@@ -434,6 +449,7 @@ void setup_onewire(void)
 			{
 			gCatena.SafePrintf("One-wire temperature sensor detected\n");
 			}
+                onewire_power_off();
 		}
         }
 
@@ -1054,6 +1070,8 @@ static bool measureOneWireTemp(float &tempDegreesC)
 	|| to support plug/unplug and the sw interface is not
 	|| really hot-pluggable.
 	*/
+        onewire_power_on();
+
 	bool fOneWireTemp = checkOneWireSensorPresent();
 
 	if (fOneWireTemp)
@@ -1069,4 +1087,6 @@ static bool measureOneWireTemp(float &tempDegreesC)
 		gCatena.SafePrintf("No probe attached\n");
                 return false;
 		}
+
+        onewire_power_off();
         }
