@@ -53,6 +53,15 @@ using namespace McciCatena;
 #  error Platform not supported
 #endif
 
+// because of bug #319, we need to make sure we have the right
+// library version.
+static_assert(
+        CATENA_ARDUINO_PLATFORM_VERSION_COMPARE_GE(
+                CATENA_ARDUINO_PLATFORM_VERSION,
+                CATENA_ARDUINO_PLATFORM_VERSION_CALC(0, 21, 3, 1)
+                ),
+        "catena-arduino-platform library must be at least v0.21.3-pre1 or later"
+        );
 
 /****************************************************************************\
 |
