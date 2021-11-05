@@ -663,13 +663,17 @@ void fillBuffer(TxBuffer_t &b)
 
                 if (fResult)
                         {
+                        if (Serial.dtr())
+                                {
+                                Serial.print("Env:  T: ");
+                                Serial.print(m.Temperature);
+                                Serial.print(" C, RH: ");
+                                Serial.print(m.Humidity);
+                                Serial.println("%");
+                                }
+
                         // temperature is 2 bytes from -0x80.00 to +0x7F.FF degrees C
                         // humidity is 2 bytes, where 0 == 0/0xFFFF and 0xFFFFF == 1.
-                        gCatena.SafePrintf(
-                                "Env:  T: %d RH: %d\n",
-                                (int) (m.Temperature + 0.5f),
-                                (int) m.Humidity
-                                );
                         b.putT(m.Temperature);
 
                         // no method for 2-byte RH, direct encode it.
@@ -1087,7 +1091,10 @@ static bool measureOneWireTemp(float &tempDegreesC)
 		{
 		sensor_OneWireTemp.requestTemperatures();
 		float oneWireTempC = sensor_OneWireTemp.getTempCByIndex(0);
-		Serial.print("Probe temperature: "); Serial.print(oneWireTempC); Serial.println(" C");
+                if (Serial.dtr())
+                        {
+                        Serial.print("Probe temperature: "); Serial.print(oneWireTempC); Serial.println(" C");
+                        }
                 tempDegreesC = oneWireTempC;
                 return true;
 		}

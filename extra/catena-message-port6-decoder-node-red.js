@@ -199,7 +199,7 @@ function Decoder(bytes, port) {
     // (array) of bytes to an object of fields.
     var decoded = {};
 
-    if (! (port === 3))
+    if (port !== 6)
         return null;
 
     // see catena-message-port3-format.md
