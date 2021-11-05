@@ -79,7 +79,7 @@ enum class FlagsSensorPort6 : uint8_t
         FlagTH = 1 << 3,	// temperature, humidity
         FlagLight = 1 << 4,	// Si1133 "white" as a float
         FlagVbus = 1 << 5,	// Vbus input
-        FlagOneWireT = 1 << 6,  // 
+        FlagOneWireT = 1 << 6,  //
         };
 
 constexpr FlagsSensorPort6 operator| (const FlagsSensorPort6 lhs, const FlagsSensorPort6 rhs)
@@ -441,7 +441,7 @@ void onewire_power_on(void)
 void onewire_power_off(void)
         {
         digitalWrite(PIN_ONE_WIRE_POWER, 0);
-        pinMode(PIN_ONE_WIRE_POWER, INPUT);        
+        pinMode(PIN_ONE_WIRE_POWER, INPUT);
         }
 
 void setup_onewire(void)
@@ -546,7 +546,7 @@ static cCommandStream::CommandStatus cmdUpdate(
         cCommandStream::CommandStatus result;
 
         pThis->printf(
-                "Update firmware: echo off, timeout %d seconds\n", 
+                "Update firmware: echo off, timeout %d seconds\n",
                 (cDownload::kTransferTimeoutMs + 500) / 1000
                 );
 
@@ -569,14 +569,14 @@ static cCommandStream::CommandStatus cmdUpdate(
                 cCommandStream::CommandStatus cmdStatus;
                 cDownload::Request_t request;
                 };
-                
+
         context_t context { pThis, true };
 
         auto doneFn =
                 [](void *pUserData, cDownload::Status_t status) -> void
                         {
                         context_t * const pCtx = (context_t *)pUserData;
-        
+
                         cCommandStream * const pThis = pCtx->pThis;
                         cCommandStream::CommandStatus cmdStatus;
 

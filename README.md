@@ -125,7 +125,7 @@ Resolving deltas: 100% (900/900), done.
 No repos with errors
 No repos skipped.
 *** no repos were pulled ***
-Repos downloaded:      Catena-Arduino-Platform arduino-lorawan Catena-mcciadk arduino-lmic MCCI_FRAM_I2C MCCI-Catena-SHT3x Arduino-Temperature-Control-Library OneWire 
+Repos downloaded:      Catena-Arduino-Platform arduino-lorawan Catena-mcciadk arduino-lmic MCCI_FRAM_I2C MCCI-Catena-SHT3x Arduino-Temperature-Control-Library OneWire
 ```
 
 It has a number of advanced options; use `git-boot.sh -h` to get help, or look at the source code [here](https://github.com/mcci-catena/Catena-Sketches/blob/master/git-boot.sh).

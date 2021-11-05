@@ -2,7 +2,7 @@
 // Module:  catena-message-port6-decoder-node-red.js
 //
 // Function:
-//      This Node-RED decoding function decodes the record sent by the Catena 4618 
+//      This Node-RED decoding function decodes the record sent by the Catena 4618
 //      onewire sensro app
 //
 // License:
