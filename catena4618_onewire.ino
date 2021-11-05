@@ -543,10 +543,23 @@ static cCommandStream::CommandStatus cmdUpdate(
         char **argv
         )
         {
+        cCommandStream::CommandStatus result;
+
         pThis->printf(
                 "Update firmware: echo off, timeout %d seconds\n", 
                 (cDownload::kTransferTimeoutMs + 500) / 1000
                 );
+
+        if (! gfFlash)
+                {
+                pThis->printf(
+                        "** flash not found at init time, can't update **\n"
+                        );
+                return cCommandStream::CommandStatus::kIoError;
+                }
+
+        gSPI2.begin();
+        gFlash.begin(&gSPI2, Catena::PIN_SPI2_FLASH_SS);
 
         struct context_t
                 {
@@ -594,14 +607,20 @@ static cCommandStream::CommandStatus cmdUpdate(
                 while (context.fWorking)
                         gCatena.poll();
 
-                return context.cmdStatus;
+                result = context.cmdStatus;
+                }
+        else
+                {
+                pThis->printf(
+                        "download launch failure\n"
+                        );
+                result = cCommandStream::CommandStatus::kInternalError;
                 }
 
-        pThis->printf(
-                "download launch failure\n"
-                );
+        gFlash.powerDown();
+        gSPI2.end();
 
-        return cCommandStream::CommandStatus::kInternalError;
+        return result;
         }
 
 // The Arduino loop routine -- in our case, we just drive the other loops.
